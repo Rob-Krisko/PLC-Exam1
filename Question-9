@@ -1,0 +1,37 @@
+/*
+ * Rob Krisko
+ * Programming Language Concepts
+ * Exam 1 Question 9
+ * This program utilizes a simple parse technique in order to verify if an input is a
+ * valid floating point constant. By utilizing strings, it is able to take inputs,
+ * then check whether they are valid using a boolean method. Included is a set of
+ * test cases, some valid, some invalid. The code can easily be modified to take 
+ * user inputs instead of hard coded test cases.
+ */
+
+
+public class FloatingPointVerification {
+    public static boolean isFloatingPoint(String str) {
+        // trying to parse the value as a float
+        try {
+            Float.parseFloat(str); // if valid,
+            return true; // returns true
+        } catch (NumberFormatException e) { // otherwise if the value is not a float
+            return false; // returns false
+        }
+    }
+
+    public static void main(String[] args) {
+        String[] testStrings = {"3.1415", "potato", "123","1,234,565",".343","0","."};
+        // utilizing a for each loop to test through all entries in the test string
+        for (String str : testStrings) {
+            // if result is true, prints the string input and success message
+            if (isFloatingPoint(str)) {
+                System.out.println(str + " is a valid floating point constant");
+                // if false, prints the string input and a failure message
+            } else {
+                System.out.println(str + " is not a valid floating point constant");
+            }
+        }
+    }
+}
