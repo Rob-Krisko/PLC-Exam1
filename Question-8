@@ -1,0 +1,59 @@
+/*
+ * Rob Krisko
+ * Programming Language Concepts
+ * Exam 1 Question 8
+ * This program is designed to verify whether a given input is a valid
+ * email address or not. It makes sure that there are only valid
+ * characters, including no consecutive . and a single @ symbol. 
+ * If a given input is a valid email address, it will return a
+ * statement informing the user. Same with invalid. The program has 
+ * a variety of test cases hard coded in, but can be easily changed
+ * to allow for user inputs instead.
+ */
+
+
+public class EmailChecker {
+    public static boolean isEmail(String str) {
+        int atPosition = str.indexOf('@'); // initialize variable for the @ symbol position
+        int lastDotPosition = str.lastIndexOf('.'); // initialize variable for position of last .
+
+        // Verifying that there is only one @ symbol in the address
+        if (atPosition == -1 || atPosition != str.lastIndexOf('@')) {
+            return false;
+        }
+
+        // Verifying that the @ symbol is not at the beginning or end of the address
+        if (atPosition == 0 || atPosition == str.length() - 1) {
+            return false;
+        }
+
+        // Verifying there is at least one . that comes after the @ symbol
+        if (lastDotPosition < atPosition + 2 || lastDotPosition == str.length() - 1) {
+            return false;
+        }
+
+        // Verifying that there are no consecutive . in the address
+        for (int i = 0; i < str.length() - 1; i++) {
+            if (str.charAt(i) == '.' && str.charAt(i + 1) == '.') {
+                return false;
+            }
+        }
+        // if all of the above conditions result as true, the function will return true
+        return true;
+    }
+
+    public static void main(String[] args) {
+        // Test some strings to see if they are email addresses
+        String[] testStrings = {"jimmy-bop54@yeehaw.com","potato@po.tato.net","@therealSlimShady@shady.slim","the legend@you", "doyou?idont@wtf.gfh","12buckleshoes@clogs", "1L1k3P13@pielove@me.com"};
+        // using a for each loop to test each string entry
+        for (String str : testStrings) {
+            // if email is valid, inform user
+            if (isEmail(str)) {
+                System.out.println(str + " is a valid email address");
+                // if email is invalid, inform user
+            } else {
+                System.out.println(str + " is not a valid email address");
+            }
+        }
+    }
+}
